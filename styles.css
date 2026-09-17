@@ -1,0 +1,126 @@
+:root {
+	--background-color: #f0f0f0;
+	--text-color: #333333;
+	--primary-color: #007bff;
+	--secondary-color: #c3ccd1;
+	--error-color: #dc3545;
+	--success-color: #28a745;
+	--card-background-color: #ffffff;
+	--font-size: 16px;
+	--margin: 16px;
+	--padding: 8px;
+	--font-family: Arial, sans-serif;
+	--rounding: 4px;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: var(--background-color);
+	color: var(--text-color);
+	font-size: var(--font-size);
+	font-family: var(--font-family);
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: var(--primary-color);
+	color: white;
+	padding: var(--padding);
+}
+
+header nav ul {
+	list-style-type: none;
+	display: flex;
+	gap: var(--margin);
+}
+
+header nav a {
+	color: var(--text-color);
+}
+
+main {
+	flex: 1;
+	padding: var(--padding);
+}
+
+footer {
+	display: flex;
+	justify-content: space-between;
+	padding: var(--padding);
+}
+
+article {
+	margin-bottom: var(--margin);
+	padding: var(--padding);
+}
+
+form {
+	background-color: var(--card-background-color);
+	padding: var(--padding);
+	border-radius: var(--rounding);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	margin-bottom: var(--margin);
+}
+
+form fieldset {
+	display: flex;
+	flex-direction: column;
+	padding: var(--padding);
+	gap: var(--margin);
+	margin-bottom: var(--margin);
+	border-radius: var(--rounding);
+}
+
+table {
+	border-collapse: collapse;
+	margin-top: var(--margin);
+}
+
+table,
+th,
+td {
+	border: 1px solid var(--secondary-color);
+}
+
+th,
+td {
+	padding: var(--padding);
+	text-align: left;
+}
+
+.error-message {
+	color: var(--error-color);
+	font-size: 0.875rem;
+}
+
+.confirmation-message {
+	color: var(--success-color);
+	font-size: 1rem;
+	margin-top: var(--margin);
+}
+
+.hidden {
+	display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background-color: #2c2c2c;
+		--text-color: #e0e0e0;
+		--primary-color: #1e88e5;
+		--secondary-color: #596063;
+		--error-color: #ef5350;
+		--success-color: #66bb6a;
+		--card-background-color: #3a3a3a;
+	}
+}

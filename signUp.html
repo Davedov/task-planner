@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>SignUp thingy</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<header>
+			<h1>SignUp thingy</h1>
+			<p>Already have an account? <a href="login.html">Log in</a></p>
+		</header>
+		<main>
+			<form action="" id="SignUp-form">
+				<h2>Create Your Account</h2>
+				<fieldset>
+					<legend>Account Information</legend>
+					<label for="email">
+						Email:
+						<input type="email" id="email" name="email" />
+					</label>
+					<label for="password">
+						Password:
+						<input type="password" id="password" name="password" />
+					</label>
+					<label for="confirm-password">
+						Confirm Password:
+						<input type="password" id="confirm-password" name="confirm-password" />
+					</label>
+				</fieldset>
+				<button type="button" id="next-button">Next</button>
+				<fieldset id="personal-info-fieldset" class="hidden">
+					<legend>Personal Information</legend>
+					<label for="first-name">
+						First Name:
+						<input type="text" id="first-name" name="first-name" />
+					</label>
+					<label for="last-name">
+						Last Name:
+						<input type="text" id="last-name" name="last-name" />
+					</label>
+					<label for="age">
+						Age:
+						<input type="number" id="age" name="age" />
+					</label>
+				</fieldset>
+				<button type="submit" class="hidden" id="sign-up-button">Sign Up</button>
+				<p id="error-message" class="error hidden"></p>
+			</form>
+			<form id="user-confirmation-form" class="hidden">
+				<table>
+					<thead>
+						<tr>
+							<th>Email</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Age</th>
+						</tr>
+					</thead>
+					<tbody id="user-preview"></tbody>
+				</table>
+				<button type="button" id="go-back-button">Go Back</button>
+				<button type="submit">Confirm</button>
+				<p id="confirmation-message" class="confirmation hidden"></p>
+			</form>
+		</main>
+		<p>&copy; 2026 Admin Tasks. All rights reserved.</p>
+		<script src="signUp.js"></script>
+	</body>
+</html>

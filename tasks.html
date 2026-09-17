@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<header>
+			<h1>Admin Tasks</h1>
+			<nav id="navigation">
+				<ul>
+					<li><a href="#task-tables">Tasks</a></li>
+					<li><a href="#find-task">Find Task</a></li>
+					<li><a href="logOut.html">Log Out</a></li>
+				</ul>
+			</nav>
+		</header>
+		<main>
+			<section id="task-tables">
+				<article class="task-table">
+					<h2>To do</h2>
+					<p id="number-of-todo-tasks"></p>
+					<table>
+						<thead>
+							<tr>
+								<th>Uppgift</th>
+								<th>Prioritet</th>
+								<th>Händelser</th>
+							</tr>
+						</thead>
+						<tbody id="todo-table"></tbody>
+					</table>
+				</article>
+				<article class="task-table">
+					<h2>Done</h2>
+					<p id="number-of-done-tasks"></p>
+					<table>
+						<thead>
+							<tr>
+								<th>Uppgift</th>
+								<th>Prioritet</th>
+								<th>Händelser</th>
+							</tr>
+						</thead>
+						<tbody id="done-table"></tbody>
+					</table>
+				</article>
+			</section>
+			<section id="find-task">
+				<h2>Find Task</h2>
+				<p>Search for a specific task by its ID</p>
+				<form id="find-task-form">
+					<label for="task-id">Task ID:</label>
+					<input type="number" id="task-id" name="task-id" required />
+					<button type="submit">Find Task</button>
+				</form>
+				<table id="find-task-table" class="hidden">
+					<thead>
+						<tr>
+							<th>Task</th>
+							<th>Priority</th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					<tbody id="find-task-tbody"></tbody>
+				</table>
+				<p id="find-task-message"></p>
+			</section>
+		</main>
+		<footer>
+			<p>&copy; 2026 Admin Tasks. All rights reserved.</p>
+			<p id="user-info"></p>
+		</footer>
+		<script src="tasks.js"></script>
+	</body>
+</html>
