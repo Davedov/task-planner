@@ -38,6 +38,14 @@ formLogIn.addEventListener("submit", function (event) {
 	}
 	//#endregion
 	//#region successful login
+	let loginMethod = event.submitter.value;
+	if (loginMethod !== "two-factor") {
+		pError.textContent = "I'm supposed to prevent this for some reason... why? idk, ask Ash";
+		pError.classList.remove("hidden");
+		return;
+	}
+
+	localStorage.setItem("loginMethod", loginMethod);
 	localStorage.setItem("userData", JSON.stringify(userData));
 	window.location.href = "tasks.html";
 	//#endregion

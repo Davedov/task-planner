@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	} else {
 		tasks = JSON.parse(tasksString);
 	}
-
+	//#region get elements
 	const tableTodo = document.getElementById("todo-table");
 	const tableDone = document.getElementById("done-table");
 	const pTodo = document.getElementById("number-of-todo-tasks");
@@ -84,17 +84,16 @@ document.addEventListener("DOMContentLoaded", () => {
 	const tbodyFindTask = document.getElementById("find-task-tbody");
 	const inputTaskId = document.getElementById("task-id");
 	const pFindTask = document.getElementById("find-task-message");
+	const formAddTask = document.getElementById("add-task-form");
+	const inputTaskTitle = document.getElementById("new-task-title");
+	const selectTaskPriority = document.getElementById("new-task-priority");
+	const pAddTask = document.getElementById("add-task-message");
+	//#endregion
+	sortTasksByPriority();
 
-	const priorityOrder = { hög: 1, medel: 2, låg: 3 };
-	tasks.sort((a, b) => {
-		return priorityOrder[a.priority] - priorityOrder[b.priority];
-	});
+	pUserInfo.textContent = `Inloggad som: ${userData.firstName} ${userData.lastName} (${userData.email}). login metod: ${localStorage.getItem("loginMethod")}`;
 
-	pUserInfo.textContent = `Inloggad som: ${userData.firstName} ${userData.lastName} (${userData.email})`;
-
-	for (const task of tasks) {
-		addTaskToTable(task);
-	}
+	renderTasks(tasks);
 
 	const todoTasks = tasks.filter((task) => !task.done);
 	const doneTasks = tasks.filter((task) => task.done);
@@ -116,12 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				todoTasks.splice(todoTasks.indexOf(task), 1);
 				doneTasks.push(task);
 
-				tableTodo.innerHTML = "";
-				tableDone.innerHTML = "";
-
-				tasks.forEach((task) => {
-					addTaskToTable(task);
-				});
+				renderTasks(tasks);
 
 				pTodo.textContent = `${todoTasks.length} uppgifter kvar att göra`;
 				pDone.textContent = `${doneTasks.length} uppgifter är klara`;
@@ -145,7 +139,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		}
 	});
-
 	formFindTask.addEventListener("submit", (event) => {
 		event.preventDefault();
 
@@ -177,38 +170,88 @@ document.addEventListener("DOMContentLoaded", () => {
 			pFindTask.textContent = "Ingen uppgift hittades med det angivna ID:t.";
 		}
 	});
+	formAddTask.addEventListener("submit", (event) => {
+		event.preventDefault();
 
-	function addTaskToTable(task) {
-		const tr = document.createElement("tr");
+		const newTaskTitle = inputTaskTitle.value.trim();
+		const newTaskPriority = selectTaskPriority.value;
 
-		const tdTitle = document.createElement("td");
-		tdTitle.textContent = task.title;
-		tr.appendChild(tdTitle);
+		if (!newTaskTitle) {
+			pAddTask.textContent = "En uppgift måste ha en titel.";
+			pAddTask.classList.remove("hidden");
+			return;
+		}
+		if (!newTaskPriority) {
+			pAddTask.textContent = "Var vänlig välj en prioritet.";
+			pAddTask.classList.remove("hidden");
+			return;
+		}
 
-		const tdPriority = document.createElement("td");
-		tdPriority.textContent = task.priority;
-		tr.appendChild(tdPriority);
+		let newTaskId;
+		if (tasks.length === 0) {
+			newTaskId = 1;
+		} else {
+			newTaskId = Math.max(...tasks.map((task) => task.id)) + 1;
+		}
+		const newTask = {
+			id: newTaskId,
+			title: newTaskTitle,
+			priority: newTaskPriority,
+			done: false,
+		};
+		tasks.push(newTask);
+		sortTasksByPriority();
 
-		const tdId = document.createElement("td");
-		tdId.textContent = task.id;
-		tdId.classList.add("hidden", "task-id");
-		tr.appendChild(tdId);
+		localStorage.setItem("tasks", JSON.stringify(tasks));
+		pAddTask.textContent = "Uppgiften har lagts till.";
+		pAddTask.classList.remove("hidden");
+		renderTasks(tasks);
 
-		const tdActions = document.createElement("td");
-		const button = document.createElement("button");
+		event.target.reset();
+	});
+	//#region functions
+	function sortTasksByPriority() {
+		tasks.sort((a, b) => {
+			const priorityOrder = { hög: 1, medel: 2, låg: 3 };
+			return priorityOrder[a.priority] - priorityOrder[b.priority];
+		});
+	}
+	function renderTasks(taskList) {
+		tableTodo.innerHTML = "";
+		tableDone.innerHTML = "";
+		taskList.forEach((task) => {
+			const tr = document.createElement("tr");
 
-		if (task.done) {
-			button.textContent = "Ta bort";
+			const tdId = document.createElement("td");
+			tdId.textContent = task.id;
+			tdId.classList.add("task-id");
+			tr.appendChild(tdId);
+
+			const tdTitle = document.createElement("td");
+			tdTitle.textContent = task.title;
+			tr.appendChild(tdTitle);
+
+			const tdPriority = document.createElement("td");
+			tdPriority.textContent = task.priority;
+			tr.appendChild(tdPriority);
+
+			const tdActions = document.createElement("td");
+			const button = document.createElement("button");
+
+			if (task.done) {
+				button.textContent = "Ta bort";
+				tdActions.appendChild(button);
+				tr.appendChild(tdActions);
+
+				tableDone.appendChild(tr);
+				return;
+			}
+			button.textContent = "Markera som klar";
 			tdActions.appendChild(button);
 			tr.appendChild(tdActions);
 
-			tableDone.appendChild(tr);
-			return;
-		}
-		button.textContent = "Markera som klar";
-		tdActions.appendChild(button);
-		tr.appendChild(tdActions);
-
-		tableTodo.appendChild(tr);
+			tableTodo.appendChild(tr);
+		});
 	}
+	//#endregion
 });

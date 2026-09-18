@@ -54,8 +54,8 @@ main {
 }
 
 footer {
-	display: flex;
-	justify-content: space-between;
+	display: grid;
+	place-items: initial;
 	padding: var(--padding);
 }
 
@@ -123,4 +123,24 @@ td {
 		--success-color: #66bb6a;
 		--card-background-color: #3a3a3a;
 	}
+}
+
+@media (max-width: 768px) {
+	:root {
+		--font-size: 14px;
+		--margin: 12px;
+		--padding: 6px;
+	}
+
+	header {
+		flex-direction: column;
+		align-items: center;
+	}
+	/*
+	footer {
+		flex-direction: column;
+		align-items: center;
+		gap: var(--margin);
+	}
+	*/
 }

@@ -8,23 +8,25 @@
 	</head>
 	<body>
 		<header>
-			<h1>Admin Tasks</h1>
+			<h1>Admin Uppgifter</h1>
 			<nav id="navigation">
 				<ul>
-					<li><a href="#task-tables">Tasks</a></li>
-					<li><a href="#find-task">Find Task</a></li>
-					<li><a href="logOut.html">Log Out</a></li>
+					<li><a href="#task-tables">Uppgifter</a></li>
+					<li><a href="#find-task">Hitta Uppgift</a></li>
+					<li><a href="#add-task">Ny Uppgift</a></li>
+					<li><a href="logOut.html">Logga Ut</a></li>
 				</ul>
 			</nav>
 		</header>
 		<main>
 			<section id="task-tables">
 				<article class="task-table">
-					<h2>To do</h2>
+					<h2>Att göra</h2>
 					<p id="number-of-todo-tasks"></p>
 					<table>
 						<thead>
 							<tr>
+								<th>ID</th>
 								<th>Uppgift</th>
 								<th>Prioritet</th>
 								<th>Händelser</th>
@@ -34,11 +36,12 @@
 					</table>
 				</article>
 				<article class="task-table">
-					<h2>Done</h2>
+					<h2>Färdiga</h2>
 					<p id="number-of-done-tasks"></p>
 					<table>
 						<thead>
 							<tr>
+								<th>ID</th>
 								<th>Uppgift</th>
 								<th>Prioritet</th>
 								<th>Händelser</th>
@@ -48,19 +51,21 @@
 					</table>
 				</article>
 			</section>
+
 			<section id="find-task">
-				<h2>Find Task</h2>
-				<p>Search for a specific task by its ID</p>
+				<h2>Hitta Uppgift</h2>
+				<p>Sök efter en specifik uppgift efter dess ID</p>
 				<form id="find-task-form">
-					<label for="task-id">Task ID:</label>
+					<label for="task-id">Uppgiftens ID:</label>
 					<input type="number" id="task-id" name="task-id" required />
-					<button type="submit">Find Task</button>
+					<button type="submit">Hitta</button>
 				</form>
 				<table id="find-task-table" class="hidden">
 					<thead>
 						<tr>
-							<th>Task</th>
-							<th>Priority</th>
+							<th>ID</th>
+							<th>Uppgift</th>
+							<th>Prioritet</th>
 							<th>Status</th>
 						</tr>
 					</thead>
@@ -68,9 +73,32 @@
 				</table>
 				<p id="find-task-message"></p>
 			</section>
+			<section id="add-task">
+				<h2>Ny Uppgift</h2>
+				<form id="add-task-form">
+					<fieldset>
+						<legend>Uppgiftsinformation</legend>
+						<label for="new-task-title"
+							>Uppgiftens titel:
+							<input type="text" id="new-task-title" name="new-task" required />
+						</label>
+						<label for="new-task-priority">
+							Prioritet:
+							<select id="new-task-priority" name="new-task-priority" required>
+								<option value="" disabled selected>- Välj prioritet -</option>
+								<option value="hög">Hög</option>
+								<option value="medel">Medel</option>
+								<option value="låg">Låg</option>
+							</select>
+						</label>
+					</fieldset>
+					<button type="submit">Lägg till</button>
+					<p id="add-task-message" class="message hidden"></p>
+				</form>
+			</section>
 		</main>
 		<footer>
-			<p>&copy; 2026 Admin Tasks. All rights reserved.</p>
+			<p>&copy; 2026 Admin Uppgifter. All rights reserved.</p>
 			<p id="user-info"></p>
 		</footer>
 		<script src="tasks.js"></script>

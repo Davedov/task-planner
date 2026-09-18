@@ -165,6 +165,8 @@ formUserConfirmation.addEventListener("submit", function (event) {
 
 	localStorage.setItem("userData", userDataJSON);
 
+	localStorage.setItem("loginMethod", "two-factor");
+
 	formSignUp.reset();
 	buttonNext.classList.remove("hidden");
 	formUserConfirmation.classList.add("hidden");
